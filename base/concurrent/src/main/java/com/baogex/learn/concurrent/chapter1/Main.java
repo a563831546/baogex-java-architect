@@ -7,7 +7,7 @@ import java.io.PrintWriter;
  * @Author: baogex
  * @Date: 2020/5/2
  */
-public class Main {
+public class Main { 
     public static void main(String[] args) {
         Thread threads[] = new Thread[10];
         Thread.State states[] = new Thread.State[10];
