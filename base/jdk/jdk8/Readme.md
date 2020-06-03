@@ -23,7 +23,12 @@ formula.sqrt(16);           // 4.0
 ```
 文中的formula被实现为一个匿名类的实例，该代码非常容易理解，6行代码实现了计算 sqrt(a * 100)。在下一节中，我们将会看到实现单方法接口的更简单的做法。
 
-译者注： 在Java中只有单继承，如果要让一个类赋予新的特性，通常是使用接口来实现，在C++中支持多继承，允许一个子类同时具有多个父类的接口与功能，在其他语言中，让一个类同时具有其他的可复用代码的方法叫做mixin。新的Java 8 的这个特新在编译器实现的角度上来说更加接近Scala的trait。 在C#中也有名为扩展方法的概念，允许给已存在的类型扩展方法，和Java 8的这个在语义上有差别。
+译者注： 在Java中只有单继承，如果要让一个类赋予新的特性，通常是使用接口来实现，在C++中支持多继承，允许一个子类同时具有多个父类的接口与功能，在其他语言中，
+让一个类同时具有其他的可复用代码的方法叫做mixin。新的Java 8 的这个特新在编译器实现的角度上来说更加接近Scala的trait。 在C#中也有名为扩展方法的概念，
+允许给已存在的类型扩展方法，和Java 8的这个在语义上有差别。
+
+**思考:可有可无，但有些情况可以避免频繁的实现一些必要但冗余的代码，当项目规模较大的时候可以使代码更加简洁**
+
 ### Lambda 表达式
 首先看看在老版本的Java中是如何排列字符串的：
 ```java
@@ -53,11 +58,64 @@ Collections.sort(names, (String a, String b) -> b.compareTo(a));
 Collections.sort(names, (a, b) -> b.compareTo(a));
 ```
 Java编译器可以自动推导出参数类型，所以你可以不用再写一次类型。接下来我们看看lambda表达式还能作出什么更方便的东西来
-
+**java8神器，是java迈向函数式编程的重要一步**
 ### 函数式接口
 Lambda表达式是如何在java的类型系统中表示的呢？每一个lambda表达式都对应一个类型，通常是接口类型。
 而“函数式接口”是指仅仅只包含一个抽象方法的接口，每一个该类型的lambda表达式都会被匹配到这个抽象方法。
 因为 默认方法 不算抽象方法，所以你也可以给你的函数式接口添加默认方法。
-
+```java
+@FunctionalInterface
+interface Converter<F, T> {
+    T convert(F from);
+}
+Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
+Integer converted = converter.convert("123");
+System.out.println(converted);    // 123
+```
 我们可以将lambda表达式当作任意只包含一个抽象方法的接口类型，确保你的接口一定达到这个要求，
 你只需要给你的接口添加 @FunctionalInterface 注解，编译器如果发现你标注了这个注解的接口有多于一个抽象方法的时候会报错的
+
+**思考**：为什么只能只包含一个抽象，因为()->{}，相当于匿名类只需要实现那个抽象就行了，符合类的敌营 
+
+### 方法与构造函数引用
+前一节中的代码还可以通过静态方法引用来表示：
+```java
+Converter<String, Integer> converter = Integer::valueOf;
+Integer converted = converter.convert("123");
+System.out.println(converted);   // 123
+```
+Java 8 允许你使用 :: 关键字来传递方法或者构造函数引用，上面的代码展示了如何引用一个静态方法，我们也可以引用一个对象的方法：
+```java
+ converter = something::startsWith;
+String converted = converter.convert("Java");
+System.out.println(converted);    // "J"
+```
+接下来看看构造函数是如何使用::关键字来引用的，首先我们定义一个包含多个构造函数的简单类：
+```java
+class Person {
+    String firstName;
+    String lastName;
+
+    Person() {}
+
+    Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+```
+接下来我们指定一个用来创建Person对象的对象工厂接口：
+```java
+interface PersonFactory<P extends Person> {
+    P create(String firstName, String lastName);
+}
+```
+这里我们使用构造函数引用来将他们关联起来，而不是实现一个完整的工厂：
+```java
+PersonFactory<Person> personFactory = Person::new;
+Person person = personFactory.create("Peter", "Parker");
+```
+我们只需要使用 Person::new 来获取Person类构造函数的引用，Java编译器会自动根据PersonFactory.create方法的签名来选择合适的构造函数。
+
+**思考**：当传入一个方法引用时候，编译器自动匹配唯一的抽象方法
+
