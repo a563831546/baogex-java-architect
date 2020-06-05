@@ -13,7 +13,7 @@ public class ImageBootStarter {
 
     public static void main(String[] args) throws IOException {
         //  Thumbnails.of("f:/1.png").scale(0.3).toFile("f:/2.png");
-        Thumbnails.of("f:/pangzi.png").scale(0.5).toFile("f:/shouzi.png");
+        Thumbnails.of("f:/T.jpg").scale(0.69).toFile("f:/OUT.jpg");
 
         // Thumbnails.of("f:/2.png").size(1400,400).toFile("f:/3.png");
     }
