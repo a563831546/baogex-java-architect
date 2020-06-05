@@ -119,3 +119,38 @@ Person person = personFactory.create("Peter", "Parker");
 
 **思考**：当传入一个方法引用时候，编译器自动匹配唯一的抽象方法
 
+### 五、Lambda 作用域
+在lambda表达式中访问外层作用域和老版本的匿名对象中的方式很相似。你可以直接访问标记了final的外层局部变量，或者实例的字段以及静态变量。
+
+### 六、访问局部变量
+我们可以直接在lambda表达式中访问外层的局部变量：
+
+```java
+final int num = 1;
+Converter<Integer, String> stringConverter =
+        (from) -> String.valueOf(from + num);
+
+stringConverter.convert(2);     // 3
+```
+但是和匿名对象不同的是，这里的变量num可以不用声明为final，该代码同样正确：
+   
+```java
+int num = 1;
+Converter<Integer, String> stringConverter =
+        (from) -> String.valueOf(from + num);
+
+stringConverter.convert(2);     // 3
+
+```
+
+不过这里的num必须不可被后面的代码修改（即隐性的具有final的语义），例如下面的就无法编译：
+
+```java
+int num = 1;
+Converter<Integer, String> stringConverter =
+        (from) -> String.valueOf(from + num);
+num = 3;
+```
+在lambda表达式中试图修改num同样是不允许的。
+
+**思考** 进入lambda表达式的外部变量都会被修饰为final

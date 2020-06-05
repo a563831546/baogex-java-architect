@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>resteasy</module>
+        <module>dataway</module>
+        <module>image</module>
     </modules>
     <dependencyManagement>
         <dependencies>
