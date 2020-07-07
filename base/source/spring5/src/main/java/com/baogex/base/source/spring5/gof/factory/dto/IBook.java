@@ -1,4 +1,4 @@
-package com.baogex.base.source.spring5.gof.dto;
+package com.baogex.base.source.spring5.gof.factory.dto;
 
 /**
  * <p>

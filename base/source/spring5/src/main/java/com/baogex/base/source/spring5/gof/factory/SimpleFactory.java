@@ -1,8 +1,8 @@
-package com.baogex.base.source.spring5.gof;
+package com.baogex.base.source.spring5.gof.factory;
 
-import com.baogex.base.source.spring5.gof.dto.IBook;
-import com.baogex.base.source.spring5.gof.dto.JavaBook;
-import com.baogex.base.source.spring5.gof.dto.PythonBook;
+import com.baogex.base.source.spring5.gof.factory.dto.IBook;
+import com.baogex.base.source.spring5.gof.factory.dto.JavaBook;
+import com.baogex.base.source.spring5.gof.factory.dto.PythonBook;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import com.baogex.base.source.spring5.gof.dto.PythonBook;
  * @author : baogex
  * @date : 2020-07-01
  **/
-public class SimpleFactory {
+public  class SimpleFactory {
     public static void main(String[] args) throws Exception {
         BookFactory.createBook(JavaBook.class).readBook();
         BookFactory.createBook(PythonBook.class).readBook();
