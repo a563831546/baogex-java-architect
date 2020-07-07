@@ -109,7 +109,7 @@ public abstract class Pool {
      *
      * @return
      */
-    public abstract Connection freeConnect(Connection con);
+    public abstract void freeConnect(Connection con);
 
     /**
      * 获取当前空闲连接数
