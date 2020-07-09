@@ -1,4 +1,4 @@
-package com.baogex.base.source.spring5.gof.factory.dto;
+package com.baogex.architect.base.source.spring5.gof.factory.dto;
 
 /**
  * <p>
@@ -8,14 +8,14 @@ package com.baogex.base.source.spring5.gof.factory.dto;
  * @author : baogex
  * @date : 2020-07-03
  **/
-public class JavaStudyMode implements StudyMode {
+public class PythonStudyMode implements StudyMode {
     @Override
     public IVideo createVideo() {
-        return new JavaVideo();
+        return new PythonVideo();
     }
 
     @Override
     public IBook createBook() {
-        return new JavaBook();
+        return new PythonBook();
     }
 }

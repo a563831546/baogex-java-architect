@@ -1,4 +1,4 @@
-package com.baogex.base.source.spring5.gof.singleton;
+package com.baogex.architect.base.source.spring5.gof.singleton;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

@@ -1,4 +1,4 @@
-package com.baogex.base.source.spring5.gof.factory.example;
+package com.baogex.architect.base.source.spring5.gof.factory.example;
 
 import java.io.IOException;
 import java.sql.Connection;

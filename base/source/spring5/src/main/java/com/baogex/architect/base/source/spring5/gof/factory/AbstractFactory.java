@@ -1,7 +1,7 @@
-package com.baogex.base.source.spring5.gof.factory;
+package com.baogex.architect.base.source.spring5.gof.factory;
 
-import com.baogex.base.source.spring5.gof.factory.dto.JavaStudyMode;
-import com.baogex.base.source.spring5.gof.factory.dto.PythonStudyMode;
+import com.baogex.architect.base.source.spring5.gof.factory.dto.JavaStudyMode;
+import com.baogex.architect.base.source.spring5.gof.factory.dto.PythonStudyMode;
 
 /**
  * <p>

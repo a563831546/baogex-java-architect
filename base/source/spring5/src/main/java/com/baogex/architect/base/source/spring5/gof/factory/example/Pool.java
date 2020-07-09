@@ -1,4 +1,4 @@
-package com.baogex.base.source.spring5.gof.factory.example;
+package com.baogex.architect.base.source.spring5.gof.factory.example;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -85,7 +85,7 @@ public abstract class Pool {
 
     public static synchronized Pool getInstance() throws Exception {
         if (instance == null) {
-            instance = (Pool) Class.forName("com.baogex.base.source.spring5.gof.factory.example.Pool").getDeclaredConstructor().newInstance();
+            instance = (Pool) Class.forName("com.baogex.architect.base.source.spring5.gof.factory.example.Pool").getDeclaredConstructor().newInstance();
         }
         return instance;
     }

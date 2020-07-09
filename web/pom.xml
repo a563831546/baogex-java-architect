@@ -13,7 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>quick-start</module>
+        <module>portal</module>
     </modules>
-
+    
 
 </project>

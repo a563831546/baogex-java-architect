@@ -1,8 +1,8 @@
-package com.baogex.base.source.spring5.gof.factory;
+package com.baogex.architect.base.source.spring5.gof.factory;
 
-import com.baogex.base.source.spring5.gof.factory.dto.IBook;
-import com.baogex.base.source.spring5.gof.factory.dto.JavaBook;
-import com.baogex.base.source.spring5.gof.factory.dto.PythonBook;
+import com.baogex.architect.base.source.spring5.gof.factory.dto.IBook;
+import com.baogex.architect.base.source.spring5.gof.factory.dto.JavaBook;
+import com.baogex.architect.base.source.spring5.gof.factory.dto.PythonBook;
 
 /**
  * <p>
