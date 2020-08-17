@@ -47,7 +47,7 @@ public class BGProxy {
     }
 
     /**
-     * 架子资源文件
+     * 架子资源文件 SynapseRT Add On : License expired or Invalid! Please contact your Administrator
      *
      * @param interafaces
      * @return

@@ -12,7 +12,8 @@
     <artifactId>source</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>spring5</module>
+        <module>spring-faker</module>
+        <module>thinking-in-spring</module>
     </modules>
 
 </project>
