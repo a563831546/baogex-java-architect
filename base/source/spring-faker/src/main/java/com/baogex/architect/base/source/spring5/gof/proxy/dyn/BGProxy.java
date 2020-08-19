@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -54,10 +56,10 @@ public class BGProxy {
      */
     private static String generateSrc(Class<?>[] interafaces) {
         StringBuffer sb = new StringBuffer();
-        sb.append("com.baogex.architect.base.source.spring5.gof.proxy.dyn;" + ln)
+        sb.append("package com.baogex.architect.base.source.spring5.gof.proxy.dyn;" + ln)
                 .append("import com.baogex.architect.base.source.spring5.gof.proxy.sta.simple.Person;" + ln)
                 .append("import java.lang.reflect.*;" + ln)
-                .append("public class Proxy implements" + interafaces[0].getName() + "[" + ln)
+                .append("public class $Proxy0 implements " + interafaces[0].getName() + "{" + ln)
                 .append("BGInvocationHandler h; " + ln)
                 .append("public $Proxy0(BGInvocationHandler h){" + ln)
                 .append("this.h = h;" + ln)
@@ -71,10 +73,76 @@ public class BGProxy {
 
             for (int i = 0; i < params.length; i++) {
                 Class clazz = params[i];
-
-
+                String type = clazz.getName();
+                String paramName = toLowerFirstCase(clazz.getSimpleName());
+                paramNames.append(type).append(" ").append(paramName);
+                paramValues.append(paramName);
+                paramClasses.append(clazz.getName()).append(".class");
+                if (i > 0 && i < params.length - 1) {
+                    paramNames.append(",");
+                    paramValues.append(",");
+                    paramClasses.append(",");
+                }
             }
+            sb.append("public " + m.getReturnType().getName() + " " + m.getName() + "(" +
+                    paramNames.toString() + "){" + ln);
+            sb.append("try{" + ln);
+            sb.append("Method m = " + interafaces[0].getName() + ".class.getMethod" +
+                    "(\"" + m.getName() + "\",new Class[]{" + paramClasses.toString() + "});" + ln);
+            sb.append((hasReturnValue(m.getReturnType()) ? "return " : "") +
+                    getCaseCode("this.h.invoke(this,m,new Object[]{" + paramValues + "})", m.getReturnType()) + ";" + ln);
+            sb.append("}catch(Error _ex_){");
+            sb.append("}catch(Throwable e){" + ln);
+            sb.append("throw new UndeclaredThrowableException(e);" + ln);
+            sb.append("}");
+            sb.append(getReturnEmptyCode(m.getReturnType()));
+            sb.append("}");
         }
-        return "";
+        sb.append("}" + ln);
+        System.out.println(sb);
+        return sb.toString();
+    }
+
+    private static final Map<Class, Class> mappings = new HashMap<>();
+
+    static {
+        mappings.put(int.class, Integer.class);
+    }
+
+    private static String getReturnEmptyCode(Class<?> returnType) {
+        if (mappings.containsKey(returnType)) {
+            return "return 0";
+        } else if (returnType == void.class) {
+            return "";
+        } else {
+            return "return null";
+        }
+    }
+
+    private static boolean hasReturnValue(Class<?> returnType) {
+        return returnType != void.class;
+    }
+
+    private static Object getCaseCode(String code, Class<?> returnType) {
+        if (mappings.containsKey(returnType)) {
+            return "((" + mappings.get(returnType).getName() + ")" + code + ")." +
+                    returnType.getSimpleName() + "Value()";
+        }
+        return code;
+    }
+
+    private static final int ASCLL_UP_A = 65;
+    private static final int ASCLL_UP_Z = 90;
+
+    private static String toLowerFirstCase(String simpleName) {
+        char[] chars = simpleName.toCharArray();
+        if (chars.length > 0) {
+            char first = chars[0];
+            if (first >= ASCLL_UP_A && first <= ASCLL_UP_Z) {
+                chars[0] = (char) (first + 32);
+            }
+            return new String(chars);
+        }
+        return simpleName;
     }
 }
