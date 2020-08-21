@@ -10,9 +10,9 @@ import java.lang.annotation.*;
  * @author : zuomin.yu
  * @date : 2020-08-21
  */
-@Target({ElementType.TYPE})
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface BGService {
+public @interface BGRequestMapping {
     String value() default "";
 }
