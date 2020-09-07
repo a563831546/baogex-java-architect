@@ -1,4 +1,4 @@
-package com.baogex.architect.base.jdk.jdk8;
+package com.baogex.architect.base.jdk.jdk8.characteristic;
 
 /**
  * 一、接口的默认方法
