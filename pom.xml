@@ -11,6 +11,7 @@
     <modules>
         <module>base</module>
         <module>web</module>
+        <module>pdf</module>
     </modules>
     <properties>
         <maven.compiler.source>1.9</maven.compiler.source>
