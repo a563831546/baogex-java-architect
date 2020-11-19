@@ -23,7 +23,9 @@ public class StackOrder1119 {
 		judgmentStackOrder(Arrays.asList("1", "2", "3", "4", "5"), Arrays.asList("4", "3", "5", "1", "2"));
 	}
 
-	//例如序列 1,2,3,4,5 是某栈的压入顺序，序列 4,5,3,2,1
+	/**
+	 * 例如序列 1,2,3,4,5 是某栈的压入顺序，序列 4,5,3,2,1
+	 */
 	private static void judgmentStackOrder(List<String> inNumList, List<String> outNumList) {
 		if (inNumList == null || outNumList == null || (inNumList.size() != outNumList.size())) {
 			throw new RuntimeException("两栈长度不一致或者为空");
@@ -49,4 +51,20 @@ public class StackOrder1119 {
 		System.out.println("出栈是否是入栈的正确出栈顺序:" + (outIndex == --maxIndex ? "是" : "否"));
 	}
 
+	/**
+	 * 简练
+	 */
+	public boolean IsPopOrder(int[] pushSequence, int[] popSequence) {
+		int n = pushSequence.length;
+		Stack<Integer> stack = new Stack<>();
+		for (int pushIndex = 0, popIndex = 0; pushIndex < n; pushIndex++) {
+			stack.push(pushSequence[pushIndex]);
+			while (popIndex < n && !stack.isEmpty()
+					&& stack.peek() == popSequence[popIndex]) {
+				stack.pop();
+				popIndex++;
+			}
+		}
+		return stack.isEmpty();
+	}
 }
