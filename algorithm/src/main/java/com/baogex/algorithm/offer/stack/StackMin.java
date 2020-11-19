@@ -14,13 +14,13 @@ import java.util.Stack;
  * @author : zuomin.yu
  * @date : 2020-11-18
  */
-public class ContentMin {
+public class StackMin {
 	private final Stack<Integer> dataStack = new Stack<>();
 	private final Stack<Integer> minStack = new Stack<>();
 
 
 	public static void main(String[] args) {
-		ContentMin contentMin = new ContentMin();
+		StackMin contentMin = new StackMin();
 		contentMin.push(1);
 		System.out.println("pop:" + contentMin.pop());
 
