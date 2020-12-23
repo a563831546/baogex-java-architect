@@ -3,6 +3,10 @@ package com.baogex.java.architect.source.spring.core.ioc.chapter3;
 import com.baogex.java.architect.source.spring.core.ioc.model.chapter3.ProductModel;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -15,10 +19,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Chapter3ApplicationStarter {
 
 	public static void main(String[] args) {
-		// 主容器
-		ApplicationContext app = new ClassPathXmlApplicationContext("classpath:config/core/ioc/chapter3/main-config.xml");
-		// 测试容器生成默认beanName规则
-		testIoCContainerDefautlName(app);
+//		// 主容器
+//		ApplicationContext app = new ClassPathXmlApplicationContext("classpath:config/core/ioc/chapter3/main-config.xml");
+//		// 测试容器生成默认beanName规则
+//		testIoCContainerDefautlName(app);
+		String ruleInterceptors=",dd";
+		if(!StringUtils.isEmpty(ruleInterceptors)){
+			System.out.println("dd");
+			System.out.println(Arrays.toString(ruleInterceptors.split(",")));
+			System.out.println(Arrays.stream(ruleInterceptors.split(",")).filter(a->!StringUtils.isEmpty(a)).collect(Collectors.toList()));
+		}
 	}
 
 	/**

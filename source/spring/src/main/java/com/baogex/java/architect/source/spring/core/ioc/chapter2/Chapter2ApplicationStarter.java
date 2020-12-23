@@ -2,9 +2,12 @@ package com.baogex.java.architect.source.spring.core.ioc.chapter2;
 
 import com.baogex.java.architect.source.spring.core.ioc.model.chapter2.ControllerModel;
 import com.baogex.java.architect.source.spring.core.ioc.model.chapter2.ServiceModel;
+import com.baogex.java.architect.source.spring.core.ioc.model.chapter3.ProductModel;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Controller;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -16,8 +19,9 @@ import org.springframework.stereotype.Controller;
  */
 public class Chapter2ApplicationStarter {
 	public static void main(String[] args) {
-
-		testXmlBeanDefinitionReader();
+		System.out.println(new ProductModel().getName());
+		//GenericApplicationContext context = new GenericApplicationContext();
+		//testXmlBeanDefinitionReader(context);
 	}
 
 	/**
@@ -26,8 +30,7 @@ public class Chapter2ApplicationStarter {
 	 *
 	 * @see XmlBeanDefinitionReader
 	 */
-	private static void testXmlBeanDefinitionReader() {
-		GenericApplicationContext context = new GenericApplicationContext();
+	private static void testXmlBeanDefinitionReader(GenericApplicationContext context ) {
 		XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(context);
 		xmlBeanDefinitionReader.loadBeanDefinitions("classpath:config/core/ioc/chapter2/main-config.xml");
 		xmlBeanDefinitionReader.loadBeanDefinitions("classpath:config/core/ioc/chapter2/service.xml");
